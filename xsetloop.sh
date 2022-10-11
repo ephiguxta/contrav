@@ -6,7 +6,7 @@ get_date() {
    local info
    info=$(date +'%H:%M:%S')
 
-   echo -e "$info"
+   echo -e "[${info}]"
 }
 
 get_brightness() {
@@ -21,10 +21,30 @@ get_brightness() {
    path='/sys/class/backlight/intel_backlight/brightness'
    info=$(<${path})
 
+   echo -e "[${info}]"
+}
+
+get_battery_info() {
+   # algumas informações sobre a bateria e
+   # estado de alimentação
+
+   local info
+   local path
+   local capacity
+   local power_supply
+
+   path='/sys/class/power_supply/BAT1'
+   capacity="${path}/capacity"
+   power_supply="${path}/status"
+
+   info="[$(<${power_supply})]"
+   info+=" [$(<${capacity})%]"
+
    echo -e "$info"
 }
 
 func_names=(
+            'get_battery_info'
             'get_brightness'
             'get_date'
 )
@@ -34,7 +54,7 @@ while true; do
    # executando todas as funções que obtém dados
    # e atribuindo no old_string uma por vez.
    for i in ${func_names[@]}; do
-      bar_string+="[$(${i})]"
+      bar_string+=" $(${i})"
    done
 
    xsetroot -name "$bar_string"
