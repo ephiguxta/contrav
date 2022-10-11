@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
-mkdir ~/.scripts
-cp xsetloop.s ~/.scripts
+scripts='~/.scripts'
+test -d "$scripts" &&  mkdir "$scripts"
+
+cp -v xsetloop.sh ~/.scripts
