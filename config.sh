@@ -14,7 +14,9 @@ if test -e ~/.xinitrc ; then
       echo -e \
       'Sobrescrevendo e salvando o último xinitrc em /tmp'
       cp -v ~/.xinitrc /tmp/xinitrc_bkp
+
       cp -fv xinitrc ~/.xinitrc
+      chmod u+x ~/.xinitrc
    }
 
 else
