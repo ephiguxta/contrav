@@ -3,10 +3,13 @@
 get_date() {
    # informações sobre o horário atual
 
+   local icon
+   icon=' '
+
    local info
    info=$(date +'%H:%M:%S')
 
-   echo -e "[${info}]"
+   echo -e "[${icon}${info}]"
 }
 
 get_brightness() {
@@ -18,6 +21,9 @@ get_brightness() {
    local path
    local info
 
+   local icon
+   icon=' '
+
    local -i full_bright
    full_bright=7142
 
@@ -27,7 +33,7 @@ get_brightness() {
    # convertendo o valor para porcentagem
    info=$(( (info * 100) / full_bright ))
 
-   echo -e "[${info}%]"
+   echo -e "[${icon}${info}%]"
 }
 
 get_battery_info() {
@@ -39,6 +45,9 @@ get_battery_info() {
    local capacity
    local power_supply
 
+   local icon
+   icon=' '
+
    path='/sys/class/power_supply/BAT1'
    capacity="${path}/capacity"
    power_supply="${path}/status"
@@ -46,7 +55,7 @@ get_battery_info() {
    info="[$(<${power_supply})]"
    info+=" [$(<${capacity})%]"
 
-   echo -e "$info"
+   echo -e "(${icon}$info)"
 }
 
 func_names=(
