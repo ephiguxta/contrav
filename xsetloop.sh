@@ -18,10 +18,16 @@ get_brightness() {
    local path
    local info
 
+   local -i full_bright
+   full_bright=7142
+
    path='/sys/class/backlight/intel_backlight/brightness'
    info=$(<${path})
 
-   echo -e "[${info}]"
+   # convertendo o valor para porcentagem
+   info=$(( (info * 100) / full_bright ))
+
+   echo -e "[${info}%]"
 }
 
 get_battery_info() {

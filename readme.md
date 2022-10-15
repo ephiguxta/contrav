@@ -1,4 +1,4 @@
-### contrav
+## contrav
 
 Script para dar informações na "barra de status" do DWM. Esse
 script serve para quem não utiliza __Display Manager__ e faz a
