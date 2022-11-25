@@ -46,14 +46,40 @@ get_battery_info() {
    local power_supply
 
    local icon
-   icon=' '
 
    path='/sys/class/power_supply/BAT1'
-   capacity="${path}/capacity"
+   capacity_path="${path}/capacity"
+   capacity="$(<${capacity_path})"
    power_supply="${path}/status"
 
    info="[$(<${power_supply})]"
-   info+=" [$(<${capacity})%]"
+   info+=" [${capacity}%]"
+
+   case "$capacity" in
+      [0-9] | 1[0-9] | 2[01] )
+         icon=' '
+         ;;
+
+      2[2-9] | 3[0-9] | 4[01] )
+         icon=' '
+         ;;
+
+      4[2-9] | 5[0-9] | 6[01] )
+         icon=' '
+         ;;
+
+      6[2-9] | 7[0-9] | 8[01] )
+         icon=' '
+         ;;
+
+      8[2-9] | 9[0-9] )
+         icon=' '
+         ;;
+
+      100 )
+         icon=' '
+         ;;
+   esac
 
    echo -e "(${icon}$info)"
 }
